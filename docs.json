@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Skop API Documentation",
+  "name": "[skop.dev]",
   "colors": {
     "primary": "#5A88A4",
     "light": "#5A88A4",
@@ -41,7 +41,8 @@
   ],
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "/logo/dark.svg",
+    "href": "https://www.skop.dev"
   },
   "primaryTab": {
     "name": "Get API Key",
