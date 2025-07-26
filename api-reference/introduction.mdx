@@ -30,10 +30,10 @@ All API endpoints require authentication using either:
 ## Billing & Pricing
 
 ### Pricing Model
-The API uses a results-based billing system where you only pay for pages that contain actual documents:
+The API uses a results-based billing system where you only pay for pages that contain actual documents. Our LangGraph agent dynamically allocates different tiers of scraping agents:
 
-- **Firecrawl Processing**: $0.18 per page with results (high-quality scraping)
-- **Fast Scraper Processing**: $0.10 per page with results (basic scraping)
+- **Advanced Scraping Agent**: $0.18 per page with results (high-quality extraction)
+- **Standard Scraping Agent**: $0.10 per page with results (basic extraction)
 
 ### Usage-Based Billing
 The API uses a simple pay-per-use model where all users are charged based on actual results:
@@ -44,7 +44,7 @@ The API uses a simple pay-per-use model where all users are charged based on act
 - **Transparent costs**: Clear per-page pricing with no hidden fees
 
 ### Cost Estimation
-- **Single Page**: ~$0.10-0.18 (depending on scraper used)
+- **Single Page**: ~$0.10-0.18 (depending on agent tier allocated)
 - **Multi-Page**: Variable based on documents found (typically $1-5 per job)
 
 ## Quickstart
