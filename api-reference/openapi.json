@@ -244,6 +244,96 @@
           }
         }
       }
+    },
+    "/": {
+      "get": {
+        "summary": "Root Endpoint",
+        "description": "Returns basic API information and available endpoints",
+        "operationId": "getRoot",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "API information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RootResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/dependencies": {
+      "get": {
+        "summary": "Health Dependencies",
+        "description": "Returns detailed status of all external dependencies",
+        "operationId": "getHealthDependencies",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Dependencies status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthDependenciesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/configuration": {
+      "get": {
+        "summary": "Health Configuration",
+        "description": "Returns current configuration status without exposing sensitive values",
+        "operationId": "getHealthConfiguration",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Configuration status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthConfigurationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "summary": "Health Readiness",
+        "description": "Kubernetes-style readiness check. Returns 200 if ready, 503 if not ready",
+        "operationId": "getHealthReady",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service is ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthReadyResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service is not ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthNotReadyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -699,6 +789,155 @@
             "type": "string",
             "format": "date-time",
             "description": "ISO 8601 error timestamp"
+          }
+        }
+      },
+      "RootResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Skop API",
+            "description": "Service name identifier"
+          },
+          "version": {
+            "type": "string",
+            "example": "1.0.0",
+            "description": "Current API version"
+          },
+          "docs": {
+            "type": "string",
+            "example": "/docs",
+            "description": "Documentation endpoint path"
+          },
+          "health": {
+            "type": "string",
+            "example": "/health",
+            "description": "Health check endpoint path"
+          },
+          "endpoints": {
+            "type": "object",
+            "properties": {
+              "scrape": {
+                "type": "string",
+                "example": "/scrape"
+              },
+              "status": {
+                "type": "string",
+                "example": "/scrape/status/{job_id}"
+              },
+              "results": {
+                "type": "string",
+                "example": "/scrape/results/{job_id}"
+              },
+              "cancel": {
+                "type": "string",
+                "example": "/scrape/{job_id}"
+              },
+              "health": {
+                "type": "string",
+                "example": "/health"
+              }
+            }
+          }
+        }
+      },
+      "HealthDependenciesResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["healthy", "degraded", "unhealthy"],
+            "description": "Overall dependency status"
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Dependency name"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["healthy", "degraded", "unhealthy"],
+                  "description": "Dependency status"
+                },
+                "response_time_ms": {
+                  "type": "number",
+                  "description": "Response time in milliseconds"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HealthConfigurationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["healthy", "degraded", "unhealthy"],
+            "description": "Configuration status"
+          },
+          "configuration": {
+            "type": "object",
+            "properties": {
+              "database_configured": {
+                "type": "boolean",
+                "description": "Database connection configured"
+              },
+              "redis_configured": {
+                "type": "boolean",
+                "description": "Redis connection configured"
+              },
+              "external_services_configured": {
+                "type": "boolean",
+                "description": "External services configured"
+              },
+              "environment": {
+                "type": "string",
+                "description": "Current environment"
+              }
+            }
+          }
+        }
+      },
+      "HealthReadyResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["ready"],
+            "description": "Readiness status"
+          },
+          "message": {
+            "type": "string",
+            "example": "Service is ready to accept requests",
+            "description": "Human-readable status message"
+          }
+        }
+      },
+      "HealthNotReadyResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["not_ready"],
+            "description": "Readiness status"
+          },
+          "message": {
+            "type": "string",
+            "example": "Service is not ready to accept requests",
+            "description": "Human-readable status message"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of reasons if not ready"
           }
         }
       }
