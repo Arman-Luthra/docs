@@ -23,7 +23,7 @@
     }
   ],
   "paths": {
-    "/health": {
+    "/health/": {
       "get": {
         "summary": "Health Check",
         "description": "Check if the API is healthy and operational. This endpoint does not require authentication.",
@@ -43,7 +43,7 @@
         }
       }
     },
-    "/scrape": {
+    "/scrape/": {
       "post": {
         "summary": "Create Scraping Job",
         "description": "Start a new document scraping job with a website URL and natural language prompt",
