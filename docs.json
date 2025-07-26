@@ -41,16 +41,11 @@
         "href": "mailto:support@skop.dev",
         "icon": "envelope"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Get API Key",
-      "href": "https://api.skop.dev"
-    }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg",
+    "light": "/logo-light.svg",
+    "dark": "/logo-dark.svg",
     "href": "https://www.skop.dev"
   },
   "footer": {
