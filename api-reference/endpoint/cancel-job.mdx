@@ -1,0 +1,82 @@
+---
+title: 'Cancel Job'
+openapi: 'DELETE /scrape/{job_id}'
+---
+
+Cancel a running job. Only jobs with status `pending` or `in_progress` can be cancelled.
+
+## Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `job_id` | string | ✅ | Unique job identifier returned from job creation |
+
+## Example Request
+
+```javascript
+const cancelJob = async (jobId) => {
+  const response = await fetch(`https://api.skop.dev/scrape/${jobId}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': 'Bearer sk-your-api-key'
+    }
+  })
+  
+  return await response.json()
+}
+```
+
+## Response (200 OK)
+
+```json
+{
+  "job_id": "job_4fc79a89797e",
+  "status": "cancelled",
+  "message": "Job cancelled successfully",
+  "cancelled_at": "2025-07-24T20:52:15Z"
+}
+```
+
+### Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `job_id` | string | Job identifier |
+| `status` | string | New job status (`cancelled`) |
+| `message` | string | Confirmation message |
+| `cancelled_at` | string | ISO 8601 cancellation timestamp |
+
+## Error Responses
+
+### Job Not Found (404)
+```json
+{
+  "error": true,
+  "message": "Job not found",
+  "status_code": 404,
+  "path": "/scrape/job_invalid",
+  "timestamp": "2025-07-24T20:50:00Z"
+}
+```
+
+### Job Already Completed (400)
+```json
+{
+  "error": true,
+  "message": "Cannot cancel job: already completed",
+  "status_code": 400,
+  "path": "/scrape/job_4fc79a89797e",
+  "timestamp": "2025-07-24T20:50:00Z"
+}
+```
+
+## Use Cases
+
+- **Resource Management**: Cancel jobs that are taking too long
+- **Cost Control**: Stop jobs to avoid unnecessary charges
+- **Queue Management**: Cancel queued jobs that are no longer needed
+- **Error Recovery**: Cancel stuck or problematic jobs
+
+<Note>
+  Once cancelled, a job cannot be restarted. You'll need to create a new job if you want to retry the same scraping task.
+</Note>

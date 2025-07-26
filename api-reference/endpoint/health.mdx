@@ -1,0 +1,36 @@
+---
+title: 'Health Check'
+openapi: 'GET /health'
+---
+
+Check if the API is healthy and operational. This endpoint does not require authentication and can be used to verify API availability.
+
+## Example Request
+
+```javascript
+const response = await fetch('https://api.skop.dev/health/')
+const health = await response.json()
+console.log(health)
+```
+
+## Response
+
+```json
+{
+  "status": "healthy",
+  "service": "skop", 
+  "version": "1.0.0",
+  "timestamp": "2025-07-24T20:50:00Z",
+  "dependency_status": "operational"
+}
+```
+
+### Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | string | Overall health status: `healthy` or `unhealthy` |
+| `service` | string | Service name identifier |
+| `version` | string | Current API version |
+| `timestamp` | string | ISO 8601 timestamp of the health check |
+| `dependency_status` | string | Status of external dependencies |
