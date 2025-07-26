@@ -8,25 +8,27 @@
     "dark": "#5A88A4"
   },
   "favicon": "/favicon.svg",
-  "navigation": [
-    {
-      "group": "Getting Started",
-      "pages": [
-        "api-reference/introduction",
-        "quickstart"
-      ]
-    },
-    {
-      "group": "API Endpoints", 
-      "pages": [
-        "api-reference/endpoint/health",
-        "api-reference/endpoint/create-job",
-        "api-reference/endpoint/job-status",
-        "api-reference/endpoint/job-results",
-        "api-reference/endpoint/cancel-job"
-      ]
-    }
-  ],
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "api-reference/introduction",
+          "quickstart"
+        ]
+      },
+      {
+        "group": "API Endpoints",
+        "pages": [
+          "api-reference/endpoint/health",
+          "api-reference/endpoint/create-job",
+          "api-reference/endpoint/job-status",
+          "api-reference/endpoint/job-results",
+          "api-reference/endpoint/cancel-job"
+        ]
+      }
+    ]
+  },
   "topbarLinks": [
     {
       "name": "Support",
