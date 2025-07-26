@@ -29,24 +29,29 @@
       }
     ]
   },
-  "topbarLinks": [
-    {
-      "name": "Dashboard",
-      "url": "https://www.skop.dev/dashboard"
-    },
-    {
-      "name": "Support",
-      "url": "mailto:support@skop.dev"
+  "navbar": {
+    "links": [
+      {
+        "label": "Dashboard",
+        "href": "https://www.skop.dev/dashboard",
+        "icon": "gauge"
+      },
+      {
+        "label": "Support",
+        "href": "mailto:support@skop.dev",
+        "icon": "envelope"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Get API Key",
+      "href": "https://api.skop.dev"
     }
-  ],
+  },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
     "href": "https://www.skop.dev"
-  },
-  "primaryTab": {
-    "name": "Get API Key",
-    "url": "https://api.skop.dev"
   },
   "footer": {
     "socials": {
