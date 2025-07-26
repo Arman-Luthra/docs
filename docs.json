@@ -31,6 +31,10 @@
   },
   "topbarLinks": [
     {
+      "name": "Dashboard",
+      "url": "https://www.skop.dev/dashboard"
+    },
+    {
       "name": "Support",
       "url": "mailto:support@skop.dev"
     }
