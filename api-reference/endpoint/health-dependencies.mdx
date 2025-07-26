@@ -1,0 +1,54 @@
+---
+title: 'Health Dependencies'
+openapi: 'GET /health/dependencies'
+---
+
+Returns detailed status of all external dependencies.
+
+## Example Request
+
+```javascript
+const response = await fetch('https://api.skop.dev/health/dependencies')
+const dependencies = await response.json()
+console.log(dependencies)
+```
+
+## Response (200 OK)
+
+```json
+{
+  "status": "healthy",
+  "dependencies": [
+    {
+      "name": "database",
+      "status": "healthy",
+      "response_time_ms": 12
+    },
+    {
+      "name": "redis",
+      "status": "healthy", 
+      "response_time_ms": 3
+    },
+    {
+      "name": "external_api",
+      "status": "healthy",
+      "response_time_ms": 45
+    }
+  ]
+}
+```
+
+### Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | string | Overall dependency status |
+| `dependencies` | array | List of dependency statuses |
+
+### Dependency Object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Dependency name |
+| `status` | string | Dependency status (healthy, degraded, unhealthy) |
+| `response_time_ms` | number | Response time in milliseconds |

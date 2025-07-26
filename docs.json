@@ -20,7 +20,11 @@
       {
         "group": "API Endpoints",
         "pages": [
+          "api-reference/endpoint/root",
           "api-reference/endpoint/health",
+          "api-reference/endpoint/health-dependencies",
+          "api-reference/endpoint/health-configuration", 
+          "api-reference/endpoint/health-ready",
           "api-reference/endpoint/create-job",
           "api-reference/endpoint/job-status",
           "api-reference/endpoint/job-results",
