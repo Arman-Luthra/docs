@@ -1,9 +1,9 @@
 ---
 title: 'Create Scraping Job'
-openapi: 'POST /scrape'
+openapi: 'POST /scrape/'
 ---
 
-Start a new document scraping job. Provide a website URL and natural language prompt describing what documents to find.
+Creates a new document scraping job that runs asynchronously in the background.
 
 ## Request Body
 
@@ -28,15 +28,15 @@ Start a new document scraping job. Provide a website URL and natural language pr
 | `website` | string | Starting URL to scrape (must be valid HTTP/HTTPS URL) |
 | `prompt` | string | Description of documents to find (10-500 characters) |
 
-### Optional Parameters
+### Parameters Object
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `single_page` | boolean | `false` | Only scrape the provided URL, don't navigate |
-| `timeout` | integer | `1800` | Job timeout in seconds (60-3600) |
-| `confidence_threshold` | float | `0.1` | Minimum AI confidence score (0.0-1.0) |
+| `single_page` | boolean | `true` | Only scrape the provided URL (no navigation) |
+| `timeout` | integer | `1800` | Max time in seconds (60-3600) |
+| `confidence_threshold` | float | `0.1` | Min AI confidence score (0.0-1.0) |
 | `file_type` | string | `"document"` | Type of files to extract |
-| `max_file_size_mb` | integer | `100` | Maximum file size to download (1-500 MB) |
+| `max_file_size_mb` | integer | `100` | Max file size in MB (1-500) |
 
 ## Example Request
 
@@ -84,3 +84,12 @@ const job = await response.json()
 | `message` | string | Success message |
 | `estimated_completion` | string | ISO 8601 estimated completion time |
 | `created_at` | string | ISO 8601 job creation timestamp |
+
+## Error Responses
+
+| Status | Error Code | Description |
+|--------|------------|-------------|
+| `400` | `validation_error` | Invalid request parameters |
+| `402` | `insufficient_credits` | Not enough credits |
+| `429` | `concurrency_limit_exceeded` | Too many concurrent jobs |
+| `503` | `service_unavailable` | Required services not configured |

@@ -1,9 +1,9 @@
 ---
 title: 'Health Check'
-openapi: 'GET /health'
+openapi: 'GET /health/'
 ---
 
-Check if the API is healthy and operational. This endpoint does not require authentication and can be used to verify API availability.
+Returns the overall health status of the API service and its dependencies. This endpoint does not require authentication.
 
 ## Example Request
 
@@ -29,8 +29,16 @@ console.log(health)
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `status` | string | Overall health status: `healthy` or `unhealthy` |
-| `service` | string | Service name identifier |
-| `version` | string | Current API version |
+| `status` | string | Health status: `healthy`, `degraded`, or `unhealthy` |
+| `service` | string | Service name identifier (always "skop") |
+| `version` | string | Current API version (1.0.0) |
 | `timestamp` | string | ISO 8601 timestamp of the health check |
 | `dependency_status` | string | Status of external dependencies |
+
+### Health Status Values
+
+| Status | Description |
+|--------|-------------|
+| `healthy` | All systems operational |
+| `degraded` | Some non-critical issues |
+| `unhealthy` | Critical issues detected |

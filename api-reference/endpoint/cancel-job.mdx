@@ -3,13 +3,13 @@ title: 'Cancel Job'
 openapi: 'DELETE /scrape/{job_id}'
 ---
 
-Cancel a running job. Only jobs with status `pending` or `in_progress` can be cancelled.
+Cancels a running scraping job and stops further processing.
 
 ## Path Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `job_id` | string | ✅ | Unique job identifier returned from job creation |
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `job_id` | string | Unique job identifier |
 
 ## Example Request
 
@@ -30,10 +30,8 @@ const cancelJob = async (jobId) => {
 
 ```json
 {
-  "job_id": "job_4fc79a89797e",
-  "status": "cancelled",
-  "message": "Job cancelled successfully",
-  "cancelled_at": "2025-07-24T20:52:15Z"
+  "message": "Job job_123456789 cancelled successfully",
+  "status": "cancelled"
 }
 ```
 
@@ -41,34 +39,15 @@ const cancelJob = async (jobId) => {
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `job_id` | string | Job identifier |
-| `status` | string | New job status (`cancelled`) |
-| `message` | string | Confirmation message |
-| `cancelled_at` | string | ISO 8601 cancellation timestamp |
+| `message` | string | Confirmation message with job ID |
+| `status` | string | New job status (always "cancelled") |
 
 ## Error Responses
 
-### Job Not Found (404)
-```json
-{
-  "error": true,
-  "message": "Job not found",
-  "status_code": 404,
-  "path": "/scrape/job_invalid",
-  "timestamp": "2025-07-24T20:50:00Z"
-}
-```
-
-### Job Already Completed (400)
-```json
-{
-  "error": true,
-  "message": "Cannot cancel job: already completed",
-  "status_code": 400,
-  "path": "/scrape/job_4fc79a89797e",
-  "timestamp": "2025-07-24T20:50:00Z"
-}
-```
+| Status | Description |
+|--------|-------------|
+| `404` | Job not found or access denied |
+| `500` | Internal server error |
 
 ## Use Cases
 

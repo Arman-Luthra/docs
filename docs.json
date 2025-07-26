@@ -3,82 +3,41 @@
   "theme": "mint",
   "name": "Skop API Documentation",
   "colors": {
-    "primary": "#3B82F6",
-    "light": "#60A5FA",
-    "dark": "#1D4ED8"
-  },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoints",
-            "pages": [
-              "api-reference/endpoint/health",
-              "api-reference/endpoint/create-job",
-              "api-reference/endpoint/job-status",
-              "api-reference/endpoint/job-results",
-              "api-reference/endpoint/cancel-job"
-            ]
-          }
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "API Dashboard",
-          "href": "https://api.skop.dev",
-          "icon": "chart-line"
-        }
-      ]
+    "primary": "#5A88A4",
+    "light": "#5A88A4",
+    "dark": "#5A88A4",
+    "background": {
+      "light": "#F8F8F8",
+      "dark": "#1a1a1a"
     }
   },
+  "favicon": "/favicon.svg",
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "api-reference/introduction",
+        "quickstart"
+      ]
+    },
+    {
+      "group": "API Endpoints",
+      "pages": [
+        "api-reference/endpoint/health",
+        "api-reference/endpoint/create-job",
+        "api-reference/endpoint/job-status",
+        "api-reference/endpoint/job-results",
+        "api-reference/endpoint/cancel-job"
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "name": "API Dashboard",
+      "url": "https://api.skop.dev",
+      "icon": "chart-line"
+    }
+  ],
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"

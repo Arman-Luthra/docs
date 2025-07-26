@@ -3,13 +3,13 @@ title: 'Get Job Results'
 openapi: 'GET /scrape/results/{job_id}'
 ---
 
-Get the final results and extracted documents from a completed job. Only available for jobs with status `completed`.
+Returns the final results of a completed scraping job, including all extracted documents.
 
 ## Path Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `job_id` | string | ✅ | Unique job identifier returned from job creation |
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `job_id` | string | Unique job identifier |
 
 ## Example Request
 
@@ -25,46 +25,54 @@ const getResults = async (jobId) => {
 }
 ```
 
-## Response
+## Response (200 OK)
 
 ```json
 {
-  "job_id": "job_4fc79a89797e",
+  "job_id": "job_123456789",
   "status": "completed",
-  "message": "Job completed successfully. Found 10 document(s).",
+  "message": "Job completed successfully. Found 12 document(s).",
   "documents": [
     {
-      "name": "June 23, 2025 minutes",
-      "url": "https://example.com/docs/minutes.pdf",
+      "name": "Board Meeting Minutes - January 2024",
+      "url": "https://example.com/docs/minutes-jan-2024.pdf",
       "source_page": "https://example.com/meetings",
       "document_type": "pdf",
-      "confidence_score": 0.65,
-      "file_size_mb": 0.59,
-      "extracted_at": "2025-07-24T20:50:53Z"
+      "confidence_score": 0.95,
+      "file_size_mb": 2.3,
+      "extracted_at": "2024-01-15T10:25:00Z"
     }
   ],
   "metadata": {
-    "job_id": "job_4fc79a89797e",
-    "created_at": "2025-07-24T20:50:02Z",
-    "completed_at": "2025-07-24T20:50:53Z",
+    "job_id": "job_123456789",
+    "created_at": "2024-01-15T10:00:00Z",
+    "started_at": "2024-01-15T10:01:00Z",
+    "completed_at": "2024-01-15T10:28:00Z",
+    "estimated_completion": "2024-01-15T10:30:00Z",
     "original_website": "https://example.com",
-    "original_prompt": "find meeting minutes for 2025",
+    "original_prompt": "Find all board meeting minutes from 2024",
     "parameters": {
-      "single_page": true,
+      "single_page": false,
       "timeout": 1800,
-      "confidence_threshold": 0.7,
-      "file_type": "document"
-    }
+      "confidence_threshold": 0.7
+    },
+    "current_agent": null,
+    "agents_completed": ["coordinator", "navigator", "scraper"],
+    "total_pages_crawled": 4,
+    "total_documents_found": 15,
+    "errors": [],
+    "warnings": ["Some documents were too large to download"],
+    "final_status": "completed"
   },
-  "total_documents_found": 10,
-  "total_documents_downloaded": 10,
-  "total_pages_crawled": 1,
-  "success_rate": 1.0,
-  "cost": 0.18,
-  "total_runtime_seconds": 50.89,
-  "runtime_minutes": 0.85,
+  "total_documents_found": 15,
+  "total_documents_downloaded": 12,
+  "total_pages_crawled": 4,
+  "success_rate": 0.8,
+  "cost": 2.16,
+  "total_runtime_seconds": 1680,
+  "runtime_minutes": 28.0,
   "errors": [],
-  "warnings": [],
+  "warnings": ["Some documents were too large to download"],
   "has_errors": false
 }
 ```
@@ -100,6 +108,13 @@ const getResults = async (jobId) => {
 | `confidence_score` | number | AI confidence score (0.0-1.0) |
 | `file_size_mb` | number | File size in megabytes |
 | `extracted_at` | string | ISO 8601 extraction timestamp |
+
+## Error Responses
+
+| Status | Description |
+|--------|-------------|
+| `404` | Job not found or access denied |
+| `500` | Internal server error |
 
 ## Example Usage
 
