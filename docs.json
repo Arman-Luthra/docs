@@ -26,6 +26,12 @@
           "api-reference/endpoint/job-results",
           "api-reference/endpoint/cancel-job"
         ]
+      },
+      {
+        "group": "Integrations",
+        "pages": [
+          "n8n-integration"
+        ]
       }
     ]
   },
